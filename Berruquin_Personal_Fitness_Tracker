@@ -1,6 +1,8 @@
 """
 Hello and welcome to your Personal Fitness Tracker (PFT)!
 
+This is an attempt at the base level assignment.
+
 The purpose of this program is to collect information about a series of your workout sessions and report on the performance of each session.
 
 The goal is to use functions and loops to repeat actions w/out copying code.
