@@ -1,0 +1,77 @@
+"""
+Hello and welcome to your Personal Fitness Tracker (PFT)!
+
+The purpose of this program is to collect information about a series of your workout sessions and report on the performance of each session.
+
+The goal is to use functions and loops to repeat actions w/out copying code.
+
+Test Cases                  Calories/Duration               Expected Rate               Expected Intennsity
+
+Low intensity               180 cal, 45 min                 4.0 cal/min                 Low
+Moderate intensity          300 cal, 40 min                 7.5 cal/min                 Moderate
+High intensity              320 cal, 30 min                 10.7 cal/min                High
+Boundary: Exactly 5         250 cal, 50 min                 5.0 cal/min                 Moderate
+Boundary: Exactly 10        200 cal, 20 min                 10.0 cal/min                High
+"""
+# Function definitions
+def calories_per_minute (calories: float, duration: float):
+    """
+    This function calculates cal/min burned and helps determine the intensity level.
+    
+    calories(float): Total calories burned during the workout.
+    duration(float): Total workout duration in minutes.
+    
+    Returns:
+    float: Calories burned per minute rounded to 1 decimal place."""
+
+    rate = calories/duration
+    return rate
+
+def get_intensity(rate: float)->str:
+    """
+    This function determines the intensity of the workout based on the calories burned.
+    
+    Scale:
+    - Less than 5.0 cal/min -> "Low"
+    - 5.0 to 9.9 cal/min -> "Moderate"
+    - 10.0 or more cal/min -> "High"
+    
+    Parameters:
+    rate(float): Calories burned per minute.
+    
+    Returns:
+    str: Workout intensity description label.
+    """
+
+    if rate< 5.0:
+        return "Low"
+    elif rate< 10.0:
+        return "Moderate"
+    else:
+        return "High"
+
+# Program
+"""
+This program will print a welcome message with spacing and line seprations. 
+You input your workout, duration and calories burned for three workouts using range to loop and it will output cal/min burned and intensity level.
+Once the three workouts are logged you will recieve a message congratulating you for staying active."""
+print("-"*50)
+print("Hello and welcome to the PFT!\n")
+print("Please log three workouts: ")
+print("-"*50)
+for workout_num in range(0, 3):
+    print(f"---Workout {workout_num + 1}---")
+
+    name = input ("Workout name: ")
+    duration = float(input("Duration (in minutes): "))
+    calories = float(input("Calories burned: "))
+
+    workout_data = (name, duration, calories)
+
+    burn_rate = calories_per_minute(float(workout_data[2]), float(workout_data[1]))
+    intensity_level = get_intensity(burn_rate)
+
+    print(f"Results: {workout_data[0]} burned {workout_data[2]} calories in {workout_data[1]} minutes, or {burn_rate:.1f} cal/min | Intensity Level: {intensity_level}\n")
+
+print("Three workouts logged, way to stay active!")
+# End program
