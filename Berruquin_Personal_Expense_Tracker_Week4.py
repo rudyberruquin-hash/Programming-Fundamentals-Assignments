@@ -1,5 +1,5 @@
 """
-Author: Ruyd Berruquin
+Author: Rudy Berruquin
 Date September 20, 2026
 Assignment: Personal Expense Tracker (Week 4)
 Tier level: Base Level
