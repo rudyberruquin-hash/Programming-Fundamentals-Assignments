@@ -1,0 +1,115 @@
+Bug #: 1
+Type: Crash
+Line(s): Line 69 in Option 1
+Original:
+    csv_file = open(csv_filename, newline="")
+    csv_reader = csv.DictReader(csv_file)
+    csv_file.close()
+    for row in csv_reader:
+Fixed:
+    csv_file = open(csv_filename, newline="")
+    csv_reader = csv.DictReader(csv_file)
+    for row in csv_reader:
+        ...
+    csv_file.close()
+Symptom: The program crashes right away with a ValueError saying the file is closed.
+Explanation: The file was closed before Python could read the lines from it. Moving csv_file.close() after the for loop lets the program read all rows first.
+
+Bug #: 2
+Type: Crash
+Line(s): Line 149 in Option 3
+Original:
+    print(f"  Student ID    : {found_student['Student_ID']}")
+Fixed:
+    print(f"  Student ID    : {found_student['StudentID']}")
+Symptom: The program crashes with a KeyError when trying to show student details.
+Explanation: The dictionary key has a typo with an extra underscore. Fixing it to 'StudentID' matches how the data was saved.
+
+Bug #: 3
+Type: Logic
+Line(s): Line 87: after csv was read and csv was closed. In option 1.
+Original:
+    # csv_loaded was never set to True
+Fixed:
+    csv_loaded = True
+Symptom: Options 2 and 3 keep saying "No data loaded" even after loading the CSV file.
+Explanation: The program never changed the csv_loaded variable to True, so other options thought no file was loaded.
+
+Bug #: 4
+Type: Logic
+Line(s): Line 86 in option 1.
+Original:
+    # student_records list was not reset before loading
+Fixed:
+    student_records = []
+Symptom: If you load the file a second time, it doubles the list and shows 20 students instead of 10.
+Explanation: Resetting student_records to an empty list before reading the CSV clears old data so duplicates aren't added.
+
+Bug #: 5
+Type: Logic
+Line(s): Line 106 in Option 2 
+Original:
+    row_number = 1
+    for current_student in student_records:
+        print(...)
+Fixed:
+    row_number = 1
+    for current_student in student_records:
+        print(...)
+        row_number = row_number + 1
+Symptom: Every row in the table is labeled as # 1.
+Explanation: The row_number variable was never increased inside the loop, so adding 1 after each student fixes the numbering.
+
+Bug #: 6
+Type: Logic
+Line(s): Line 102 in Option 2
+Original:
+    print("-" * 80)
+    print(f"{'#':<5} {'Student ID':<12} {'Student Name':<22} {'Major':<24} {'GPA':<6} {'Credits'}")
+    print("-" * 82)
+Fixed:
+    print("-" * 82)
+    print(f"{'#':<5} {'Student ID':<12} {'Student Name':<22} {'Major':<24} {'GPA':<6} {'Credits'}")
+    print("-" * 82)
+Symptom: The top line of the table is shorter than the bottom line, making the table look crooked.
+Explanation: Changing the top line width from 80 to 82 makes both dividing lines match.
+
+Bug #: 7
+Type: Logic
+Line(s): LIne 159 in Option 4
+Original:
+    elif menu_choice == 4:
+Fixed:
+    elif menu_choice == "4":
+Symptom: Typing 4 does not quit the program and says it is an invalid choice.
+Explanation: The input from the user comes in as a string, so comparing it to the string "4" instead of the number 4 lets the user exit.
+
+Bug #: 8
+Type: Logic
+Line(s): Line 135 in Option 3
+Original:
+    while search_index <= len(student_records):
+Fixed:
+    while search_index < len(student_records):
+Symptom: Searching for a student that doesn't exist crashes the program with an IndexError.
+Explanation: Python lists start at index 0, so using <= goes one spot too far past the end of the list.
+
+Bug #: 9
+Type: Subtle
+Line(s): LInes 130-140 in Option 3
+Original:
+    # found_student was not reset before searching
+Fixed:
+    found_student = None
+Symptom: If you search for a real student and then search for a fake student, it still shows the old student.
+Explanation: Resetting found_student to None before starting a new search makes sure old search results don't stick around.
+
+Bug #: 10
+Type: Subtle
+Line(s): Line 136 in Option 3
+Original:
+    if student_records[search_index]["StudentID"].upper() == search_id:
+Fixed:
+    if student_records[search_index]["StudentID"].upper() == search_id.upper():
+Symptom: Typing a lowercase ID like "s1005" says student not found.
+Explanation: Adding .upper() to search_id turns lowercase user input into uppercase so it matches the ID in the list.
