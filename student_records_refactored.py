@@ -1,3 +1,9 @@
+"""
+Student Records Assignment
+Tier Level: Assignement + attempt at bonus
+Date: October 15, 2026
+Author: Rudy Berruquin
+"""
 import csv
 
 
